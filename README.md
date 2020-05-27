@@ -14,6 +14,6 @@ neurotherapy
     - in system properties window, select **Environment variables..** at the bottom of the window
     - add a new **System variable**
       - variable name: `DME_ROOT` 
-      - variable value: browse directory and locate location of the folder containing the python scripts (example: D:\Users\kathrync\Documents\GIT\cgi_dme_test) 
+      - variable value: browse directory and locate location of the folder containing the python scripts (ex: D:\Users\kathrync\Documents\GIT\cgi_dme_test) 
     
   
