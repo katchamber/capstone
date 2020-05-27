@@ -9,4 +9,11 @@ neurotherapy
 4. install Python packages
    - use command `pip install pyserial`
    - use command `pip install PyVISA-py`
+5. add environment variable 
+    - using start menu search bar, search for **environment variables**
+    - in system properties window, select **Environment variables..** at the bottom of the window
+    - add a new **System variable**
+      - variable name: `DME_ROOT` 
+      - variable value: browse directory and locate location of the folder containing the python scripts (example: D:\Users\kathrync\Documents\GIT\cgi_dme_test) 
+    
   
