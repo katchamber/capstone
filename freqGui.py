@@ -18,25 +18,32 @@ def getFreqValue():
     global runStatusAudio
     global runStatusLight
     
-    if ((int(lightFreqInput.value) < 0) or (int(lightFreqInput.value) > 60)):
-        lightFreq=0
-        err1 = True
-    else:
-        lightFreq = int(lightFreqInput.value)
-        err1 = False
-    if ((int(audioFreqInput.value) < 0) or (int(audioFreqInput.value) > 60)):
-        audioFreq=0
-        err2 = True
-    else:
-        audioFreq = int(audioFreqInput.value)
-        err2 = False
-    if(err2 or err1):
-        errFlagBox.value = '*Error*'
-    else:
-        errFlagBox.value = 'Frequencies Updated'
+    try:
+        if ((int(lightFreqInput.value) < 0) or (int(lightFreqInput.value) > 60)):
+            lightFreq=0
+            err1 = True
+        else:
+            lightFreq = int(lightFreqInput.value)
+            err1 = False
+        if ((int(audioFreqInput.value) < 0) or (int(audioFreqInput.value) > 60)):
+            audioFreq=0
+            err2 = True
+        else:
+            audioFreq = int(audioFreqInput.value)
+            err2 = False
+        if(err2 or err1):
+            errFlagBox.value = '*Error*'
+        else:
+            errFlagBox.value = 'Frequencies Updated'
             
-    displayLight.value = "Light Frequency: " + str(lightFreq)
-    displayAudio.value = "Audio Frequency: " + str(audioFreq)
+        
+    except ValueError:
+        errFlagBox.value = 'Please input a value'
+        lightFreq = 0
+        audioFreq = 0
+        displayLight.value = "Light Frequency: " + str(lightFreq)
+        displayAudio.value = "Audio Frequency: " + str(audioFreq)
+        
     
 def onOffAudio():
     #flips value of boolean runStatusAudio, updates user visuals
@@ -72,8 +79,8 @@ audioFreqInput = TextBox(freqGui, width="40") #accepts user input for (int audio
 
 updateFreqValue = PushButton(freqGui,command=getFreqValue,text="Update Frequency Values") #updates both (ints audioFreq, lightFreq)
 
-displayLight = Text(freqGui,text="No values set",size=24,font="Roboto") #display for current (int lightFreq)
-displayAudio = Text(freqGui,text="No values Set",size=24,font="Roboto") #display for current (int audioFreq)
+displayLight = Text(freqGui,text="Light Frequency: " + str(lightFreq),size=24,font="Roboto") #display for current (int lightFreq)
+displayAudio = Text(freqGui,text="Audio Frequency: " + str(audioFreq),size=24,font="Roboto") #display for current (int audioFreq)
 
 errFlagBox = Text(freqGui,text="**",size=24,font="Roboto") #displays if there is currently an error in the acceptance of user inputs
 
