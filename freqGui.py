@@ -41,8 +41,8 @@ def getFreqValue():
         errFlagBox.value = 'Please input a value'
         lightFreq = 0
         audioFreq = 0
-        displayLight.value = "Light Frequency: " + str(lightFreq)
-        displayAudio.value = "Audio Frequency: " + str(audioFreq)
+    displayLight.value = "Light Frequency: " + str(lightFreq)
+    displayAudio.value = "Audio Frequency: " + str(audioFreq)
         
     
 def onOffAudio():
