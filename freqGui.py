@@ -8,7 +8,12 @@ runStatusAudio = False
 runStatusLight = False
 
 def getFreqValue():
-    mainDisplay.value = str(lightFreq)
+
+    global lightFreq
+    global audioFreq
+    global runStatusAudio
+    global runStatusLight
+    
     if ((int(lightFreqInput.value) < 0) or (int(lightFreqInput.value) > 60)):
         lightFreq=0
         err1 = True
@@ -29,20 +34,33 @@ def getFreqValue():
     displayLight.value = "Light Frequency: " + str(lightFreq)
     displayAudio.value = "Audio Frequency: " + str(audioFreq)
     
-def onOff():
-    mainDisplay.value = yellow
-    runStatusLight = not runStatusLight
+def onOffAudio():
+
+    global audioFreq
+    global runStatusAudio
+    
+   
     runStatusAudio = not runStatusAudio
-    onOffLight.text = str(runStatusLight)
-    onOffAudio.text = str(runStatusAudio)
+    
+    onOffAudio.text = "Audio status: " + str(runStatusAudio)
+    
+def onOffLight():
+
+    global lightFreq
+    global runStatusLight
+    
+    runStatusLight = not runStatusLight
+    
+    onOffLight.text = "Light status: " + str(runStatusLight)
+   
 
     
-freqGui = App(title="Brain Bot") #start of app
+freqGui = App(title="Neurotherapy Control GUI") #start of app
 
 
 
 
-mainDisplay = Text(freqGui, text="Welcome to the Brain Bot",size=36, font="Roboto") #main display
+mainDisplay = Text(freqGui, text="Welcome",size=36, font="Roboto") #main display
 
 
 
@@ -58,8 +76,8 @@ displayAudio = Text(freqGui,text="No values Set",size=24,font="Roboto")
 
 errFlagBox = Text(freqGui,text="**",size=24,font="Roboto")
 
-onOffLight = PushButton(freqGui,command=onOff,text="Light status: Standby")
-onOffAudio = PushButton(freqGui,command=onOff,text="Audio status: Standby")
+onOffLight = PushButton(freqGui,command=onOffLight,text="Light status: Standby")
+onOffAudio = PushButton(freqGui,command=onOffAudio,text="Audio status: Standby")
 
 
             
