@@ -1,4 +1,5 @@
 from guizero import App, Text, TextBox, PushButton
+from tonegen3 import ToneGenerator
 
 #data I gotta send to Kathyrn
 lightFreq = 0 #integer: light frequency
@@ -6,6 +7,8 @@ audioFreq = 0 #interger: audio frequency
 runStatusAudio = False #boolean: False implies audio off, True implies audio on
 runStatusLight = False #boolean: False implies light off, True implies light on
 durationValue = 0
+amplitude = 0.50
+generator = ToneGenerator()
 
 def getFreqValue():
     #called upon pressing main button, updateFreqValue
@@ -53,9 +56,16 @@ def onOffAudio():
     global audioFreq
     global runStatusAudio
     
-    runStatusAudio = not runStatusAudio
+    runStatusAudio = True
+    onOffAudio.text = "Audio status: " + str(runStatusAudio)
+    
+    if (runStatusAudio == True):
+        generator.play(audioFreq, durationValue, amplitude)
+        
+        runStatusAudio = False
     
     onOffAudio.text = "Audio status: " + str(runStatusAudio)
+    
     
 def onOffLight():
     #flips value of boolean runStatusLight, updates user visuals
@@ -65,11 +75,14 @@ def onOffLight():
     global runStatusLight
     
     runStatusLight = not runStatusLight
+    if (runStatusLight== True):
+        generator.play(audioFreq, durationValue, amplitude)
     
     onOffLight.text = "Light status: " + str(runStatusLight)
 
 def updateDuration():
     global durationValue
+    global runStatusAudio
     try:
         if(int(durationInput.value) < 0):
             durationValue = 0
@@ -80,6 +93,8 @@ def updateDuration():
     except ValueError:
         durationValue = 0
         durationPrompt.value = "Please enter a valid duration time"
+
+    
    
 freqGui = App(title="Neurotherapy Control GUI") #start app
 
@@ -106,7 +121,7 @@ displayAudio = Text(freqGui,text="Audio Frequency: " + str(audioFreq),size=24,fo
 
 errFlagBox = Text(freqGui,text="**",size=24,font="Roboto") #displays if there is currently an error in the acceptance of user inputs
 
-onOffLight = PushButton(freqGui,command=onOffLight,text="Light status: Standby") #changes status of (boolean runStatusLight
-onOffAudio = PushButton(freqGui,command=onOffAudio,text="Audio status: Standby") #changes status of (boolean runStatusAudio)
+onOffLight = PushButton(freqGui,command=onOffLight,text="Light status: False") #changes status of (boolean runStatusLight
+onOffAudio = PushButton(freqGui,command=onOffAudio,text="Audio status: False") #changes status of (boolean runStatusAudio)
 
 freqGui.display() #end app
