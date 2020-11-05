@@ -64,7 +64,7 @@ class ToneGenerator(object):
 #                                 Usage Example                               #
 ###############################################################################
  
-generator = ToneGenerator()
+#generator = ToneGenerator()
 counter = 0
 #stop = 0
 xx = "1"
@@ -81,26 +81,30 @@ frequency_end = 50       # Frequency to end the sweep at
 num_frequencies = 1       # Number of frequencies in the sweep
 amplitude = 0.50            # Amplitude of the waveform
         # Time (seconds) to play at each step
- 
-#for frequency in numpy.logspace(math.log(frequency_start, 10),
+step_duration = 5.5
+#for freuency in numpy.logspace(math.log(frequency_start, 10),
                                 #math.log(frequency_end, 10),
                                 #num_frequencies):
  
-while True: 
-    cmd1 = input("do you want to start?")
-    if (cmd1 == 'yes'):
-        print("Playing tone at {0:0.2f} Hz".format(frequency))
-        for x in range(10000): 
-            counter = 1000
-            step_duration = counter
-            generator.play(frequency, step_duration, amplitude)
-            cmd = input("do you want to stop?")
-            if (cmd == 'yes'):
-                break
-        break
-    while generator.is_playing():
+#while True:
+#    generator.play(frequency, step_duration, amplitude)
+#    cmd = input("do you want to stop?")
+#    if (cmd == 'yes'):
+#        break
+    #cmd1 = input("do you want to start?")
+    #if (cmd1 == 'yes'):
+     #   print("Playing tone at {0:0.2f} Hz".format(frequency))
+      #  for x in range(10000): 
+       #     counter = 1000
+        #    step_duration = counter
+            #generator.play(frequency, step_duration, amplitude)
+            #cmd = input("do you want to stop?")
+            #if (cmd == 'yes'):
+            #    break
+       # break
+    #while generator.is_playing():
         #xx = input("do you want to stop?")
         #print(xx)
-        if (xx == "0"):
-            exit()
-        pass                # Do something useful in here (e.g. recording)
+        #if (xx == "0"):
+        #    exit()
+        #pass                # Do something useful in here (e.g. recording)
