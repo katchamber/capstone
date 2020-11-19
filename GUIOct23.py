@@ -1,5 +1,14 @@
 from guizero import App, Text, TextBox, PushButton
 from tonegen3 import ToneGenerator
+import RPi.GPIO as IO  
+from time import sleep 
+
+
+IO.setwarnings(False) 
+IO.setmode (IO.BCM)
+IO.setup(13,IO.OUT)
+
+
 
 #data I gotta send to Kathyrn
 lightFreq = 0 #integer: light frequency
@@ -75,9 +84,13 @@ def onOffLight():
     global runStatusLight
     
     runStatusLight = not runStatusLight
-    if (runStatusLight== True):
-        generator.play(audioFreq, durationValue, amplitude)
-    
+    if(runStatusLight == True):
+        p = IO.PWM(13,lightFreq)
+        p.start(80)
+    elif(runStatusLight == False):
+        p.stop()
+        IO.output(13, IO.LOW)
+        
     onOffLight.text = "Light status: " + str(runStatusLight)
 
 def updateDuration():
