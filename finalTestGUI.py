@@ -10,16 +10,19 @@ from time import sleep
 
 
 
-
-lightFreq = 0 #integer: light frequency
-audioFreq = 0 #interger: audio frequency
-durationValue = 0 #determines how long the test runs for
-amplitude = 0.50 #affects volume of audio, literally represents the amplitude of the sine wave it generates
-#generator = ToneGenerator()
-PWMpin = 13 #specifies which pin the PWM comes out from
-dutyCycle = 80 #specifies duty cycle of the PWM
+#dev stuff: don't change if you don't know what you're doing
 freqLowLim = 20 #lowest allowable limit for both light and audio freq
 freqHighLim = 60 #highest allowable limit for both light and audio freq
+#generator = ToneGenerator()
+PWMpin = 13 #specifies which pin the PWM comes out from
+
+#default values: you can change these as long as they fit in the bounds defined above
+lightFreq = 40 #integer: light frequency
+audioFreq = 40 #interger: audio frequency
+durationValue = 10 #determines how long the test runs for
+amplitude = 0.50 #affects volume of audio, literally represents the amplitude of the sine wave it generates
+dutyCycle = 80 #specifies duty cycle of the PWM
+
 
 def getFreqValue():
     #called upon pressing main button, updateFreqValue
@@ -93,6 +96,24 @@ def updateCycle():
         cyclePrompt.value = "Error: Please enter a value"
         
     displayCycle.value = "Duty Cycle: " + str(dutyCycle)
+    
+def updateAmplitude():
+    #updates the amplitude variable
+    
+    global amplitude
+    
+    try:
+    
+        if ((float(ampInput.value) > 0) and (float(ampInput.value) < 100)):
+            amplitude = float(ampInput.value)
+            ampPrompt.value = "Enter an amplitude"
+        else:
+            ampPrompt.value = "Amplitude Error: Please enter a valid "
+            
+    except ValueError:
+        ampPrompt.value = "Error: Please enter a value"
+        
+    displayAmp.value = "Amplitude: " + str(amplitude)
         
 def updateDuration():
     global durationValue
@@ -103,7 +124,7 @@ def updateDuration():
             durationPrompt.value = "Please enter a valid duration time"
         else:
             durationValue = int(durationInput.value)
-            durationPrompt.value = "Please enter a test duration"
+            durationPrompt.value = "Enter a test duration"
             
     except ValueError:
         durationPrompt.value = "Please enter a valid duration time"
@@ -127,15 +148,19 @@ updateFreqValue = PushButton(freqGui,command=getFreqValue,text="Update Frequency
 
 lineBreak = Text(freqGui,text="",size=24)
 
-durationPrompt = Text(freqGui,text="Please enter a test duration",size=24,font="Roboto")
+durationPrompt = Text(freqGui,text="Enter a test duration",size=24,font="Roboto")
 durationInput = TextBox(freqGui, width="40")
 durationButton = PushButton(freqGui,command=updateDuration,text="Update test duration")
 
 lineBreak = Text(freqGui,text="",size=24)
 
-cyclePrompt = Text(freqGui,text="Please enter a duty cycle",size=24,font="Roboto")
+cyclePrompt = Text(freqGui,text="Enter a duty cycle",size=24,font="Roboto")
 cycleInput = TextBox(freqGui, width="40")
 cycleButton = PushButton(freqGui,command=updateCycle,text="Update duty cycle ")
+
+ampPrompt = Text(freqGui,text="Enter an amplitude",size=24,font="Roboto")
+ampInput = TextBox(freqGui, width="40")
+cycleButton = PushButton(freqGui,command=updateAmplitude,text="Update amplitude")
 
 lineBreak = Text(freqGui,text="",size=24)
 
